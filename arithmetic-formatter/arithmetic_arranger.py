@@ -6,6 +6,7 @@ TOO_MANY_DIGITS = 'Error: Numbers cannot be more than four digits.'
 def arithmetic_arranger(problems):
 
     arranged_problems = 'PASS'
+    problem_components = []
 
     if len(problems) > 5:
         return TOO_MANY_PROBLEMS
@@ -25,4 +26,48 @@ def arithmetic_arranger(problems):
         if len(first_operand) > 4 or len(second_operand) > 4:
             return TOO_MANY_DIGITS
 
+
+        # transform strings to numbers and calulate solution
+        first_operand_num = int(first_operand)
+        second_operand_num = int(second_operand)
+
+        if operator == '+':
+            solution_num = first_operand_num + second_operand_num
+        elif operator == '-':
+            solution_num = first_operand_num - second_operand_num
+
+        solution = str(solution_num)
+
+
+        # create strings with correct spacing from problem and solution
+        if len(first_operand) > len (second_operand):
+            first_line = "  " + first_operand
+            spaces = " " * (len(first_operand) - len(second_operand))
+            second_line = operator + " " + spaces + second_operand            
+        else:
+            spaces = (" " * (len(second_operand) - len(first_operand)))
+            first_line = "  " + spaces + first_operand
+            second_line = operator + " " + second_operand
+
+        problem_components.append((first_line, second_line, solution))
+
+    # create output strings
+    first_operands = ''
+    second_operands = ''
+    dashes = ''
+    solutions = ''
+
+    for x in range(len(problem_components)):
+        if x < (len(problem_components) - 1):
+            first_operands += (problem_components[x][0] + "    ")
+            second_operands += (problem_components[x][1] + "    ")
+            dashes += ("-" * len(problem_components[x][1]) + "    ")
+            solutions += ((" " * (len(problem_components[x][1]) - len(problem_components[x][2]))) + problem_components[x][2] + "    ")
+        elif x == (len(problem_components) - 1):
+            first_operands += (problem_components[x][0] + "\n")
+            second_operands += (problem_components[x][1] + "\n")
+            dashes += ("-" * len(problem_components[x][1]) + "\n")
+            solutions += ((" " * (len(problem_components[x][1]) - len(problem_components[x][2]))) + problem_components[x][2])
+
+    arranged_problems = first_operands + second_operands + dashes + solutions
     return arranged_problems
