@@ -29,7 +29,7 @@ class Category:
 
 		total = str(round(self.get_balance(), 2))
 		total_line = f"Total: {total}"
-		
+
 		return name_line + ledger_lines + total_line
 
 	def get_balance(self):
@@ -71,4 +71,58 @@ class Category:
 
 
 def create_spend_chart(categories):
-	return ""
+	total_spend = 0
+	category_spend_values = []
+	category_percentages = []
+
+	for category in categories:
+		category_spend = 0
+		for line_item in category.ledger:
+			if line_item["amount"] < 0:
+				category_spend -= line_item["amount"]
+		category_spend_values.append(category_spend)
+		total_spend += category_spend
+
+	for category_amount in category_spend_values:
+		category_percentage = round((int(category_amount * 100) // total_spend) // 10) * 10
+		category_percentages.append(category_percentage)
+
+	spend_chart = "Percentage spent by category\n"
+
+	for x in range (100, -1, -10):
+		if len(str(x)) < 3:
+			percentage_string = (" " * (3 - len(str(x))) + str(x))
+		else:
+			percentage_string = str(x)
+		spend_chart += (percentage_string + "|")
+		for percentage in category_percentages:
+			if percentage >= x:
+				spend_chart += " o "
+			else:
+				spend_chart += "   "
+		if x == 0:
+			spend_chart += " \n    "
+		else:
+			spend_chart += " \n"
+
+	for x in range(len(categories)):
+		spend_chart += "---"
+		if x == (len(categories) - 1):
+			spend_chart += "-\n"
+
+	category_name_lengths = [len(category.name) for category in categories]
+	max_category_name_length = max(category_name_lengths)
+
+	for x in range(max_category_name_length):
+		spend_chart += "    "
+		for category in categories:
+			if x < len(category.name):
+				spend_chart += f" {category.name[x]} "
+			else:
+				spend_chart += "   "
+		if x < (max_category_name_length - 1):
+			spend_chart += " \n"
+		else:
+			spend_chart += " "
+
+	return spend_chart
