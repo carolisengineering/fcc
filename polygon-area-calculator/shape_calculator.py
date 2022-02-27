@@ -19,6 +19,17 @@ class Rectangle:
 	def get_diagonal(self):
 		return ((self.width ** 2 + self.height ** 2) ** .5)
 
+	def get_picture(self):
+		if self.width > 50 or self.height > 50:
+			return 'Too big for picture.'
+		else:
+			return 'this is a picture of a rectangle'
+
+	def get_amount_inside(self, other_rectangle):
+		return 'this is the number of times the other rectangle could fit inside this rectangle'
+
+	def __str__(self):
+		return f'Rectangle(width={self.width}, height={self.height})'
 
 
 class Square(Rectangle):
@@ -38,4 +49,5 @@ class Square(Rectangle):
 		self.width = side_length
 		self.height = side_length
 
-
+	def __str__(self):
+		return f'Square(side={self.width})'
