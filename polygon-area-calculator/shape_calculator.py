@@ -20,21 +20,16 @@ class Rectangle:
 		return ((self.width ** 2 + self.height ** 2) ** .5)
 
 	def get_picture(self):
+		picture = ''
 		if self.width > 50 or self.height > 50:
 			return 'Too big for picture.'
 		else:
-			picture_string = ''
 			for x in range(self.height):
-				for x in range(self.width):
-					picture_string += '*'
-				picture_string += '\n'
-			return picture_string
+				picture += ('*' * self.width + '\n')
+			return picture
 
 	def get_amount_inside(self, other_rectangle):
-		area = self.get_area()
-		other_rectangle_area = other_rectangle.get_area()
-		amount_inside = area // other_rectangle_area
-		return amount_inside
+		return self.get_area() // other_rectangle.get_area()
 
 	def __str__(self):
 		return f'Rectangle(width={self.width}, height={self.height})'
