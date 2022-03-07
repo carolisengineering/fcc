@@ -1,5 +1,6 @@
 import copy
 import random
+from collections import Counter
 # Consider using the modules imported above.
 
 class Hat:
@@ -20,23 +21,37 @@ class Hat:
 			self.contents.append("test") 
 
 	def draw(self, number_of_balls):
+		if number_of_balls > len(self.contents):
+			return self.contents
 		balls_removed = []
-		for x in range(number_of_balls):
+		for x in range(1,number_of_balls):
 			index_of_ball_to_remove = random.randint(1,number_of_balls)
 			ball_to_remove = self.contents[index_of_ball_to_remove]
 			del self.contents[index_of_ball_to_remove]
 			balls_removed.append(ball_to_remove)
-			number_of_balls -= number_of_balls
+			number_of_balls -= 1
 		return balls_removed
 
 
 
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-	print('this is an expriment.')
 	probability = 0
 	original_hat = hat
-	for experiment in range(0,num_experiments):
+	actual_matches_expected_count = 0
+	experiment_success = False
+	for experiment in range(num_experiments):
 		actual_balls = hat.draw(num_balls_drawn)
-		print(actual_balls)
-		print(expected_balls)
+		ball_counter = Counter(actual_balls)
+		for item in expected_balls:
+			if ball_counter[item] >= expected_balls[item]:
+				experiment_success = True
+			else:
+				experiment_success = False
+				break
+		if experiment_success:
+			actual_matches_expected_count += 1
+
+	probability = actual_matches_expected_count / num_experiments
+
+	return probability
