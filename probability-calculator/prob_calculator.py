@@ -23,13 +23,13 @@ class Hat:
 	def draw(self, number_of_balls):
 		if number_of_balls > len(self.contents):
 			return self.contents
+		balls_to_draw = self.contents
 		balls_removed = []
-		for x in range(1,number_of_balls):
-			index_of_ball_to_remove = random.randint(1,number_of_balls)
-			ball_to_remove = self.contents[index_of_ball_to_remove]
-			del self.contents[index_of_ball_to_remove]
+		for x in range(number_of_balls):
+			index_of_ball_to_remove = random.randint(0,len(balls_to_draw)-1)
+			ball_to_remove = balls_to_draw[index_of_ball_to_remove]
 			balls_removed.append(ball_to_remove)
-			number_of_balls -= 1
+			del balls_to_draw[index_of_ball_to_remove]
 		return balls_removed
 
 
