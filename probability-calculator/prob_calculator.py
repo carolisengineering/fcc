@@ -37,7 +37,6 @@ class Hat:
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 	probability = 0
-	original_hat = hat
 	actual_matches_expected_count = 0
 	experiment_success = False
 	for experiment in range(num_experiments):
@@ -51,6 +50,11 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 				break
 		if experiment_success:
 			actual_matches_expected_count += 1
+		print(f"expected_balls: {expected_balls}")
+		print(f"actual balls: {actual_balls}")
+		print(f"ball counter: {ball_counter}")
+		print(f"experiment_success: {experiment_success}")
+		print(f"actual matches expected: {actual_matches_expected_count}")
 
 	probability = actual_matches_expected_count / num_experiments
 
