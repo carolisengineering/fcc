@@ -73,7 +73,8 @@ ALTER TABLE public.galaxy OWNER TO freecodecamp;
 
 CREATE TABLE public.moon (
     moon_id integer NOT NULL,
-    name character varying(50)
+    name character varying(50),
+    planet_id integer
 );
 
 
@@ -85,7 +86,8 @@ ALTER TABLE public.moon OWNER TO freecodecamp;
 
 CREATE TABLE public.planet (
     planet_id integer NOT NULL,
-    name character varying(50)
+    name character varying(50),
+    star_id integer
 );
 
 
@@ -97,7 +99,8 @@ ALTER TABLE public.planet OWNER TO freecodecamp;
 
 CREATE TABLE public.star (
     star_id integer NOT NULL,
-    name character varying(50)
+    name character varying(50),
+    galaxy_id integer
 );
 
 
@@ -171,6 +174,30 @@ ALTER TABLE ONLY public.planet
 
 ALTER TABLE ONLY public.star
     ADD CONSTRAINT star_pkey PRIMARY KEY (star_id);
+
+
+--
+-- Name: moon fk_moon_planet; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.moon
+    ADD CONSTRAINT fk_moon_planet FOREIGN KEY (planet_id) REFERENCES public.planet(planet_id);
+
+
+--
+-- Name: planet fk_planet_star; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.planet
+    ADD CONSTRAINT fk_planet_star FOREIGN KEY (star_id) REFERENCES public.star(star_id);
+
+
+--
+-- Name: star fk_star_galaxy; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT fk_star_galaxy FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
 
 
 --
