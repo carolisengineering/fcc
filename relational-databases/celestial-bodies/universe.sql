@@ -49,7 +49,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.comet (
     comet_id integer NOT NULL,
-    name character varying(50),
+    name character varying(50) NOT NULL,
     diameter integer,
     description text
 );
@@ -77,7 +77,7 @@ ALTER TABLE public.galaxy OWNER TO freecodecamp;
 
 CREATE TABLE public.moon (
     moon_id integer NOT NULL,
-    name character varying(50),
+    name character varying(50) NOT NULL,
     planet_id integer,
     diameter integer,
     description text
@@ -92,7 +92,7 @@ ALTER TABLE public.moon OWNER TO freecodecamp;
 
 CREATE TABLE public.planet (
     planet_id integer NOT NULL,
-    name character varying(50),
+    name character varying(50) NOT NULL,
     star_id integer,
     diameter integer,
     description text,
@@ -109,7 +109,7 @@ ALTER TABLE public.planet OWNER TO freecodecamp;
 
 CREATE TABLE public.star (
     star_id integer NOT NULL,
-    name character varying(50),
+    name character varying(50) NOT NULL,
     galaxy_id integer,
     diameter integer,
     description text
